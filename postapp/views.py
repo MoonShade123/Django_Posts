@@ -153,8 +153,8 @@ class LikeAPIView(APIView):
             id = request.query_params['id']
             if id is not None:
                 post = Post.objects.get(id=id)
-                likes = Like.objects.get(post=post)
-                serializer = LikeSerializer(likes)
+                likes = Like.objects.filter(post=post)
+                serializer = LikeListSerializer(likes)
         except:
             likes = Like.objects.all()
             serializer = LikeListSerializer(likes)
