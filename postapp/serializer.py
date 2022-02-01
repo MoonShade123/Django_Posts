@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-from .models import User, Post
+from .models import User, Post, Like
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -80,6 +80,30 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'is_active')
+
+
+class UserListSerializer(serializers.ListSerializer):
+    child = UserSerializer()
+    allow_null = True
+    many = True
+
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = '__all__'
+
+
+class LikeListSerializer(serializers.ListSerializer):
+    child = LikeSerializer()
+    allow_null = True
+    many = True
 
 
 
